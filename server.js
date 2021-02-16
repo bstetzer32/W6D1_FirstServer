@@ -2,8 +2,25 @@ const http = require('http');
 const fs = require('fs');
 
 http.createServer((req, res) => {
-
+// console.log(events.js)
 if ( req.url === "/OK") {
+    console.log("Inbound 'OK' request being processed...");
+    res.writeHead(200);
+} 
+
+else if ( req.url === "/htmlstuff") {
+    let read = fs.readFileSync('./htmlstuff.html');
+    res.writeHead(200, {"Content-Type" : "text/html"});
+    res.write(read);
+}
+
+else if ( req.url === "/htmlstuff" && req.method === post) {
+    let read = fs.readFileSync('./htmlstuff.html');
+    res.writeHead(200, {"Content-Type" : "text/html"});
+    res.write(read);
+}
+
+else if ( req.url === "/") {
     console.log("Inbound 'OK' request being processed...");
     res.writeHead(200);
 }
@@ -21,7 +38,7 @@ else if(req.url === "/Created") {
 }
 
 else if(req.url === "/Forbidden") {
-    console.log(`403 Forbidden`);
+    console.log(`403 Forbidden, attemped access by`);
     res.writeHead(404, {"Content-Type" : "text/html"});
     res.write("<h1> 404 Page Not Found! </h1>")
 }
